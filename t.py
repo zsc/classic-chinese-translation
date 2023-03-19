@@ -14,11 +14,16 @@ def proc(fname: str, fname2: str):
 
         lines = [lines[i] for i in range(len(lines)) if i == len(lines) - 1 or not lines[i + 1][0].startswith(lines[i][0])]
 
-        arr = [{"instruction": "Translate the following sentence from Classic Chinese to Modern Chinese.", "input": x[0], "output": x[1]} for x in lines]
+        # random sample some of lines
+        import random
+        lines = random.sample(lines, len(lines) // 2)
+
+        #arr = [{"instruction": "Translate the following sentence from Classic Chinese to Modern Chinese.", "input": x[0], "output": x[1]} for x in lines]
+        arr = [{"instruction": "Translate Chinese", "input": x[0], "output": x[1]} for x in lines]
         # dump the arr as json into a file named fname.json
         import json
         with open(fname + '.json', 'w') as f:
-            json.dump(arr, f, indent=4)
+            json.dump(arr, f, indent=2)
 
         print(len(lines))
 
